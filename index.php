@@ -34,3 +34,19 @@ $paiements = [
     'facture'=>['date'=>'14/06/2026','reference'=>1],
     ]
 ];
+
+function saisie(string $message):string{
+    
+}
+function required(string $value,array &$errors,string $errorRequired):void{
+  
+}
+
+function unique(array $produits,string $value,array &$errors,string $errorUnique):void{
+   
+}
+
+function saveProduct(){
+    global $products;
+
+}
