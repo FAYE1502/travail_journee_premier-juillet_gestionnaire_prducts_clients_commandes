@@ -123,3 +123,5 @@ function archiverProduit (): void {
         }
         
 }
+archiverProduit ();
+listerProduits($productsArchived);
