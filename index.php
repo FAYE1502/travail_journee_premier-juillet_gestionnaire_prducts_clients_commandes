@@ -36,17 +36,43 @@ $paiements = [
 ];
 
 function saisie(string $message):string{
-    
+    return readline ($message);
 }
 function required(string $value,array &$errors,string $errorRequired):void{
-  
+   if(empty($value)){
+        $errors['required'] = $errorRequired;
+   }
 }
 
 function unique(array $produits,string $value,array &$errors,string $errorUnique):void{
-   
+    foreach ($produits as $produit) {
+        if ($produit["libele"] === $value) {
+            $errors['unique'] = $errorUnique;
+        }
+    }
 }
 
 function saveProduct(){
     global $products;
+
+    function saveProduct(){
+    global $products;
+    do {
+        $errors = [];
+        $libelle = saisie("Entrez le libellé: ");
+        required($libelle,$errors,"Le libellé est obligatoire");
+        unique($products,$libelle,$errors,"Ce libellé existe déjà");
+        foreach($errors as $error){
+            echo "$error \n";
+        }
+    } while (count($errors)!= 0);
+    $newProduct=[
+        "ref"=>genererReference($products),
+        "libele" => $libelle,
+    ];
+    $products[] = $newProduct;
+    var_dump($products);
+}
+
 
 }
