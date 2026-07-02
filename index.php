@@ -102,3 +102,24 @@ function getProductByLibele (array $products, string $value): int{
             return array_splice($products, $index, 1)[0];
             
     }
+
+    function listerProduits(array $products) : void {
+    foreach ($products as $product){
+         echo $product["libele"]."\n";
+    }
+}
+
+function archiverProduit (): void {
+    global $productsArchived , $products;
+    
+    $value = saisie ("Veuillez renseigner le libellé \n");
+    $indexArchived = getProductByLibele($products, $value);
+        if ($indexArchived !== -1){
+            $productArchived = deleteProduit($indexArchived, $products);
+            $productsArchived[] = $productArchived;
+            
+        } else {
+            echo "Produit non trouvé";
+        }
+        
+}
