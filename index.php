@@ -52,6 +52,13 @@ function unique(array $produits,string $value,array &$errors,string $errorUnique
     }
 }
 
+function showError(array $errors){
+    foreach($errors as $errorField){
+        foreach($errorField as $error)
+            echo "$error \n";
+        }
+}
+
 function saveProduct(){
     global $products;
 
@@ -71,7 +78,7 @@ function saveProduct(){
         "libele" => $libelle,
     ];
     $products[] = $newProduct;
-    var_dump($products);
+    
 }
 
 
@@ -123,5 +130,31 @@ function archiverProduit (): void {
         }
         
 }
+
+
+function saveClient(){
+    global $clients;
+    do{
+        $errors = [];
+        $nom = saisie("Entrer votre nom:");
+        required($nom,$errors,"Le nom est obligatoire","nom");
+        $telephone = saisie("Entrer le telephone: ");
+        required($telephone,$errors,"Le telephone est obligatoire","tel");
+        unique($clients,$telephone,$errors,"Le telephone exist deja","tel");
+        $adress = saisie("Entrer votre address");
+        showError($errors);
+    }while(count($errors)!=0);
+
+    $newClient =[
+        'nomPrenom'=>$nom,'tel'=>$telephone,'address'=>$adress
+    ];
+
+    $clients []=$newClient;
+
+}
+
+saveClient();
+
 archiverProduit ();
 listerProduits($productsArchived);
+
